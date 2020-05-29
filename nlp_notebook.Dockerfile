@@ -16,4 +16,9 @@ RUN conda install --quiet -y $(cat /etc/conda_reqs.txt) && \
 
 RUN pip install -q -U -r /etc/requirements.txt
 
+USER root
+RUN apt-get -yq update && \
+    apt-get install --no-install-recommends -yq curl
+USER $NB_UID
+
 RUN python -m spacy download de_core_news_sm && python -m spacy download en_core_web_sm
